@@ -1,0 +1,44 @@
+.container-single-item {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  max-height: 610px;
+  .single-item {
+    background-color: #c3c3c328;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 200px;
+    height: 250px;
+    margin-bottom: 30px;
+    margin-left: 10px;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+    &__quantity {
+      background-color: rgb(102, 102, 102);
+      width: 75px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #000;
+
+      button {
+        outline: none;
+        border: none;
+        height: 30px;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.226);
+          cursor: pointer;
+        }
+        span {
+          padding-inline: 7.5px;
+        }
+      }
+    }
+  }
+}
