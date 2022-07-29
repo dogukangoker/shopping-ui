@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../redux/slice/postSlice";
+import { addToCart, removeFromCart } from "../../redux/slice/postSlice";
 import { CartList, ShoppingList } from "../../redux/slice/postSlice";
+
+import Modal from "../../UI/Modal";
 import "./style.scss";
 
 interface IProps {
@@ -20,15 +22,26 @@ const SingleItem = ({ item }: IProps) => {
   const dispatch = useDispatch();
   const shoppingList = useSelector(ShoppingList);
   const cartList = useSelector(CartList);
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className="container-single-item">
       {item.map((item: any) => (
         <div key={item.id} className="single-item">
           <div>{item.name}</div>
           <img src={item.img} alt="" />
-          <div>{item.price} $</div>
+          <div
+            onClick={() => {
+              setShowModal(!showModal);
+            }}
+          >
+            {item.price} $
+          </div>
           <div className="single-item__quantity">
-            <button>
+            <button
+              onClick={() => {
+                dispatch(removeFromCart(item));
+              }}
+            >
               <span>-</span>
             </button>
             {item.quantity}
@@ -42,6 +55,20 @@ const SingleItem = ({ item }: IProps) => {
           </div>
         </div>
       ))}
+      <Modal isOpen={showModal} setIsOpen={setShowModal}>
+        <div className="container-single-item__modal">
+          <div>Seçili Ürünleri Sepete Eklemek İstiyor Musunuz?</div>
+          <div className="container-single-item__modal__icons">
+            <span
+              onClick={() => setShowModal(false)}
+              className="material-symbols-outlined"
+            >
+              cancel
+            </span>
+            <span className="material-symbols-outlined">check_circle</span>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

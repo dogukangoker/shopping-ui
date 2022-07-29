@@ -75,10 +75,20 @@ export const ShoppingSlice = createSlice({
         cart.push({ ...item, quantity: 1 });
       }
     },
+    removeFromCart: (state, action) => {
+      const item = action.payload;
+      const cart = state.cart;
+      if (cart.find((i) => i.id === item.id)) {
+        cart.find((i) => i.id === item.id)!.quantity -= 1;
+        if (cart.find((i) => i.id === item.id)!.quantity === 0) {
+          cart.splice(cart.indexOf(cart.find((i) => i.id === item.id)!), 1);
+        }
+      }
+    },
   },
 });
 
-export const { addToCart } = ShoppingSlice.actions;
+export const { addToCart, removeFromCart } = ShoppingSlice.actions;
 
 export const ShoppingList = (state: RootState) => state.shopping.shopping;
 export const CartList = (state: RootState) => state.shopping.cart;
