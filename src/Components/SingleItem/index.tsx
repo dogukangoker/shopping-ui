@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../../redux/slice/postSlice";
+import {
+  addToCart,
+  removeFromCart,
+  changeQuantity,
+} from "../../redux/slice/postSlice";
 import { CartList, ShoppingList } from "../../redux/slice/postSlice";
 
 import Modal from "../../UI/Modal";
@@ -23,6 +27,8 @@ const SingleItem = ({ item }: IProps) => {
   const shoppingList = useSelector(ShoppingList);
   const cartList = useSelector(CartList);
   const [showModal, setShowModal] = useState(false);
+  const [temporaryCartList, setTemporaryCartList] = useState<ArrayProps[]>([]);
+  const [temporaryQuantity, setTemporaryQuantity] = useState(1);
   return (
     <div className="container-single-item">
       {item.map((item: any) => (

@@ -69,6 +69,7 @@ export const ShoppingSlice = createSlice({
     addToCart: (state, action) => {
       const item = action.payload;
       const cart = state.cart;
+
       if (cart.find((i) => i.id === item.id)) {
         cart.find((i) => i.id === item.id)!.quantity += 1;
       } else {
@@ -85,10 +86,19 @@ export const ShoppingSlice = createSlice({
         }
       }
     },
+    changeQuantity: (state, action) => {
+      const item = action.payload.item;
+      const quantity = action.payload.quantity;
+      const cart = state.cart;
+      if (cart.find((i) => i.id === item.id)) {
+        cart.find((i) => i.id === item.id)!.quantity = quantity;
+      }
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = ShoppingSlice.actions;
+export const { addToCart, removeFromCart, changeQuantity } =
+  ShoppingSlice.actions;
 
 export const ShoppingList = (state: RootState) => state.shopping.shopping;
 export const CartList = (state: RootState) => state.shopping.cart;
