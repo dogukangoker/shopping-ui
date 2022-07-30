@@ -1,3 +1,8 @@
 .item-list {
   display: flex;
+  max-height: 650px;
+  overflow-y: auto;
+  @media screen and (max-width: 700px) {
+    max-height: 550px;
+  }
 }

@@ -69,9 +69,10 @@ export const ShoppingSlice = createSlice({
     addToCart: (state, action) => {
       const item = action.payload;
       const cart = state.cart;
-
+      const shopping = state.shopping;
       if (cart.find((i) => i.id === item.id)) {
         cart.find((i) => i.id === item.id)!.quantity += 1;
+        shopping.find((i) => i.id === item.id)!.quantity += 1;
       } else {
         cart.push({ ...item, quantity: 1 });
       }
@@ -79,10 +80,13 @@ export const ShoppingSlice = createSlice({
     removeFromCart: (state, action) => {
       const item = action.payload;
       const cart = state.cart;
+      const shopping = state.shopping;
       if (cart.find((i) => i.id === item.id)) {
         cart.find((i) => i.id === item.id)!.quantity -= 1;
+        shopping.find((i) => i.id === item.id)!.quantity -= 1;
         if (cart.find((i) => i.id === item.id)!.quantity === 0) {
           cart.splice(cart.indexOf(cart.find((i) => i.id === item.id)!), 1);
+          shopping.find((i) => i.id === item.id)!.quantity = 1;
         }
       }
     },

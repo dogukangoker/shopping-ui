@@ -50,7 +50,7 @@ const SingleItem = ({ item }: IProps) => {
             >
               <span>-</span>
             </button>
-            {item.quantity}
+            <span className="single-item__quantity__span">{item.quantity}</span>
             <button
               onClick={() => {
                 dispatch(addToCart(item));
